@@ -43,7 +43,10 @@ import java.util.List;
           System.out.println("2. Search for a course");
           System.out.println("3. Add New Student");
           System.out.println("4. Create a new file");
-          System.out.println("5. Exit");
+          System.out.println("5. Delete Student");
+          System.out.println("6. Search by Address");
+          System.out.println("7. Search for a subset of records");
+          System.out.println("8. Exit");
 
           menu = in.nextInt();
           switch(menu) {
@@ -237,8 +240,7 @@ import java.util.List;
 
             try {
             Path text = Paths.get(fileName);
-            String newLine = "\n";
-            Files.write(text, newLine.getBytes(), StandardOpenOption.APPEND);
+            Files.write(text, "\n".getBytes(), StandardOpenOption.APPEND);
             Files.write(text, studentInfo.getBytes(), StandardOpenOption.APPEND);
             System.out.println("Successfully Written To File");
             }
@@ -247,7 +249,72 @@ import java.util.List;
             }
 
             break;
+
+            case 4:
+            System.out.println("Please enter the name of the file you want to create: ");
+            Scanner inputTxt = new Scanner(System.in);
+            String newUserFile = inputTxt.nextLine();
+            Path newFileLocation = Paths.get(newUserFile);
+
+
+            try {
+              Path createNewFile = Files.createFile(newFileLocation);
+              System.out.println("New file sucessfully created");
+            }
+            catch (Exception notFound) {
+              System.out.println("Error, file already exists");
+              System.out.println(notFound);
+              System.exit(0);
+            }
+            break;
+
+            case 5:
+            try {
+              System.out.println("Please enter the line you want to delete:");
+              Scanner scanner = new Scanner(System.in);
+              int lineDelete = scanner.nextInt();
+
+              //Create object of FileReader
+              FileReader inputFile = new FileReader(fileName);
+
+              //Instantiate the BufferedReader Class
+              BufferedReader bufferReader = new BufferedReader(inputFile);
+
+              //Variable to hold the one line data
+              List<String> lines = new ArrayList<String>();
+              String line = "";
+              while ((line = bufferReader.readLine()) != null) {
+                lines.add(line);
+              }
+              bufferReader.close();
+
+              lines.remove(lineDelete);
+
+              try {
+                Path tempFile = Files.createFile(Paths.get("temp.txt"));
+                for (String temp: lines) {
+                  Files.write(tempFile, temp.getBytes(), StandardOpenOption.APPEND);
+                  Files.write(tempFile, "\n".getBytes(), StandardOpenOption.APPEND);
+                }
+                Files.delete(fileLocation);
+
+                Files.move(tempFile, fileLocation);
+
+                System.out.println("Successfully Deleted from the File");
+              }
+              catch (Exception e) {
+                e.printStackTrace();
+              }
+            }
+            catch (Exception e) {
+              e.printStackTrace();
+            }
+            break;
+
+            case 6:
+            
+            break;
           }
-        } while(menu != 5);
+        } while(menu != 8);
    }
   }

@@ -1,4 +1,3 @@
 matt,C123456,Computer Science,CM2536,3,cardinal avenue,bristol,BM0PQ,
 Michael Bolt,C078925,maths,MM6846,123a,The Strand,Edinburgh,MC9SL,
-
 Ross Singleton,C1615528,Computer Science, CM1102, 123a, Iceland, china, EX1QC, 
