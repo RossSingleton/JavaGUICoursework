@@ -3,19 +3,19 @@
  * Student number: C1615528
  */
 
-import java.io.File;
+import java.io.*;
+import java.util.*;
 
 public class Shortener {
     // This class is only a starting point. You should complete all members
     // below, but you may also need to add other fields and methods to
     // finish the implementation as per the question on the assignment sheet.
 
-    /*
-     * Default constructor that will load a default abbreviations text file.
-     */
-     
+    private File textFile;
+    private ArrayList<String> abbreviations = new ArrayList<String>();
+
     public Shortener() {
-        // to be completed
+        this.textFile = new File("abbreviations.txt");
     }
 
     /*
@@ -23,7 +23,7 @@ public class Shortener {
      * File parameter.
      */
     public Shortener( File inAbbreviationsFile ) {
-        // to be completed
+        this.textFile = inAbbreviationsFile;
     }
 
     /*
@@ -31,7 +31,7 @@ public class Shortener {
      * parameter is a file path for.
      */
     public Shortener( String inAbbreviationsFilePath ) {
-        // to be completed
+      this.textFile = new File(inAbbreviationsFilePath);
     }
 
     /*
@@ -59,7 +59,10 @@ public class Shortener {
      * You may assume that words are always lower case.
      */
     public String shortenWord( String inWord ) {
-        // to be completed
+        inWord = inWord.trim();
+        String endChar = inWord.substring(inWord.length() - 1);
+
+        
     }
 
     /*

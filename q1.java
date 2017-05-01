@@ -292,8 +292,8 @@ import java.util.List;
 
               try {
                 Path tempFile = Files.createFile(Paths.get("temp.txt"));
-                for (String temp: lines) {
-                  Files.write(tempFile, temp.getBytes(), StandardOpenOption.APPEND);
+                for (String tempText: lines) {
+                  Files.write(tempFile, tempText.getBytes(), StandardOpenOption.APPEND);
                   Files.write(tempFile, "\n".getBytes(), StandardOpenOption.APPEND);
                 }
                 Files.delete(fileLocation);
@@ -312,6 +312,113 @@ import java.util.List;
             break;
 
             case 6:
+            try {
+              int searchMenu = 0;
+              Boolean searchValid = false;
+
+              System.out.println("Please enter what you want to search using: ");
+              System.out.println("1. House Number");
+              System.out.println("2. Street Name");
+              System.out.println("3. Town");
+              System.out.println("4. Postcode");
+              Scanner scanner = new Scanner(System.in);
+              searchMenu = scanner.nextInt();
+
+              //Create object of FileReader
+              FileReader inputFile = new FileReader(fileName);
+
+              //Instantiate the BufferedReader Class
+              BufferedReader bufferReader = new BufferedReader(inputFile);
+
+              //Variable to hold the one line data
+              List<String> lines = new ArrayList<String>();
+              String line = "";
+              while ((line = bufferReader.readLine()) != null) {
+                lines.add(line);
+              }
+              bufferReader.close();
+
+                switch(searchMenu) {
+                  case 1:
+                  System.out.println("Please enter the house number:");
+                  Scanner scannerHN = new Scanner(System.in);
+                  String searchHouseNum = scannerHN.nextLine();
+
+                  ArrayList<String> houseNumResults = new ArrayList<>();
+
+                  for (String temp: lines) {
+                    String[] row = temp.split(",");
+                    if(row[4].contains(searchHouseNum)) {
+                        houseNumResults.add(temp);
+                    }
+                  }
+                  for (String result: houseNumResults) {
+                    System.out.println(result);
+                  }
+                  break;
+
+                  case 2:
+                  System.out.println("Please enter the street name:");
+                  Scanner scannerSN = new Scanner(System.in);
+                  String searchStreetName = scannerSN.nextLine();
+
+                  ArrayList<String> streetNameResults = new ArrayList<>();
+
+                  for (String temp: lines) {
+                    String[] row = temp.split(",");
+                    if(row[5].toLowerCase().contains(searchStreetName.toLowerCase())) {
+                        streetNameResults.add(temp);
+                    }
+                  }
+                  for (String result: streetNameResults) {
+                    System.out.println(result);
+                  }
+                  break;
+
+                  case 3:
+                  System.out.println("Please enter the town:");
+                  Scanner scannerT = new Scanner(System.in);
+                  String searchTown = scannerT.nextLine();
+
+                  ArrayList<String> townResults = new ArrayList<>();
+
+                  for (String temp: lines) {
+                    String[] row = temp.split(",");
+                    if(row[6].toLowerCase().contains(searchTown.toLowerCase())) {
+                        townResults.add(temp);
+                    }
+                  }
+                  for (String result: townResults) {
+                    System.out.println(result);
+                  }
+                  break;
+
+                  case 4:
+                  System.out.println("Please enter the Postcode:");
+                  Scanner scannerP = new Scanner(System.in);
+                  String searchPostcode = scannerP.nextLine();
+
+                  ArrayList<String> postcodeResults = new ArrayList<>();
+
+                  for (String temp: lines) {
+                    String[] row = temp.split(",");
+                    if(row[7].toLowerCase().contains(searchPostcode.toLowerCase())) {
+                        postcodeResults.add(temp);
+                    }
+                  }
+                  for (String result: postcodeResults) {
+                    System.out.println(result);
+                  }
+                  break;
+                }
+
+            }
+            catch (Exception e) {
+              System.out.println(e.getMessage());
+            }
+            break;
+
+            case 7:
             
             break;
           }
